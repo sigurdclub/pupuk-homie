@@ -1,0 +1,27 @@
+/* table admin */
+.table-admin th,
+td{
+    text-align: center;
+    color: black;
+}
+
+.card-stock-barang label{
+    color: black;
+}
+
+#inputAddress,
+#inputAddress2,
+#inputAddress3,
+#inputAddress4
+{
+    background-color: rgb(209, 208, 208);
+    color: black;
+}
+
+/* text title */
+.text-title{
+    color: white;
+}
+.text-title:hover{
+    color: rgb(197, 197, 197);
+}
