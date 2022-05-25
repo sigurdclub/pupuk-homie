@@ -1,22 +1,30 @@
 <?php
-// include_once "../koneksi.php";
-// $koneksi = Koneksi();
-// if(isset($_POST['tambah'])){
+include_once "../koneksi.php";
+$koneksi = Koneksi();
+$id = $_GET["id"];
+$data=query("SELECT * FROM admin_pupuk WHERE id='$id' ");
+  
+    foreach($data as $row){
+        $nama= $row["username"];
+        $pwd=$row["password"];
+        
+    }
+if(isset($_POST['update'])){
 
-//     if(barangKeluar($_POST)>0){
-//     echo "
-//         <script>
-//             alert('data berhasil ditambah!');
-//             document.location.href = 'barang_keluar.php';
-//         </script>";
-//   }else{
-//     echo "
-//       <script>
-//           alert('data gagal ditambah!');
-//           document.location.href = 'barang_keluar.php';
-//       </script>";
-//   }
-// }
+    if(updateAdmin($_POST)>0){
+    echo "
+        <script>
+            alert('data berhasil diubah!');
+            document.location.href = 'kelolah_admin.php';
+        </script>";
+  }else{
+    echo "
+      <script>
+          alert('data gagal diubah!');
+          document.location.href = 'kelolah_admin.php';
+      </script>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,19 +121,19 @@
         
         <hr style="margin-top: 10%;"> 
         <li class="nav-item" style="padding: 5px;">
-            <a href="../stock_barang/stock_barang.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Stock barang</p>
-            </a>
+        <a href="../stock_pupuk/stock_pupuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Stock pupuk</p>
+        </a>
         </li>
         <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_masuk/barang_masuk.php" class="nav-link">
+            <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
             <i class="nav-icon fas fa-ellipsis-h"></i>
             <p>Barang Masuk</p>
             </a>
         </li>
         <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_keluar/barang_keluar.php" class="nav-link">
+            <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
             <i class="nav-icon fas fa-file"></i>
             <p>Barang Keluar</p>
             </a>
@@ -163,17 +171,20 @@
 <div class="card card-stock-barang" style="width: 50%; background-color: #8E3200;">
     <div class="card-body">
     <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
-    <div class="col-12">
-        <label for="inputAddress" class="form-label">Username</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="username..." name="username" required>
-    </div>
-    <div class="col-12">
-        <label for="inputAddress2" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputAddress2" placeholder="password...." name="password" required>
-    </div>
-    <div class="col-12" style="display: flex; justify-content: right;">
-        <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
-    </div>
+        <div class="col-12">
+            <input type="hidden" class="form-control" id="inputAddress" placeholder="username..." name="id" value="<?php echo $id ?>" required>
+        </div>
+        <div class="col-12">
+            <label for="inputAddress" class="form-label">Username</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="username..." name="username" value="<?php echo $nama ?>" required>
+        </div>
+        <div class="col-12">
+            <label for="inputAddress2" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputAddress2" placeholder="password...." name="password" required>
+        </div>
+        <div class="col-12" style="display: flex; justify-content: right;">
+            <button type="submit" class="btn btn-primary" name="update">Update</button>
+        </div>
     </form>
     </div>
 </div>

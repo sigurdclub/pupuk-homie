@@ -2,8 +2,7 @@
 include_once'../koneksi.php';
 $koneksi = Koneksi();
 $i=1;
-    $data=query("SELECT * FROM stok_barang INNER JOIN stok_keluar ON stok_barang.idbarang = stok_keluar.idbarang 
-                ORDER BY idkeluar DESC");
+    $data=query("SELECT * FROM stok_pupuk ");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,19 +99,19 @@ $i=1;
     
     <hr style="margin-top: 10%;"> 
     <li class="nav-item" style="padding: 5px;">
-        <a href="../stock_barang/stock_barang.php" class="nav-link">
+        <a href="../stock_pupuk/stock_pupuk.php" class="nav-link">
         <i class="nav-icon fas fa-ellipsis-h"></i>
         <p>Stock pupuk</p>
         </a>
     </li>
     <li class="nav-item" style="padding: 5px;">
-        <a href="../barang_masuk/barang_masuk.php" class="nav-link">
+        <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
         <i class="nav-icon fas fa-ellipsis-h"></i>
         <p>Barang Masuk</p>
         </a>
     </li>
     <li class="nav-item" style="padding: 5px;">
-        <a href="../barang_keluar/barang_keluar.php" class="nav-link">
+        <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
         <i class="nav-icon fas fa-file"></i>
         <p>Barang Keluar</p>
         </a>
@@ -137,7 +136,7 @@ $i=1;
 <div class="container-fluid">
     
     <div class="">
-        <h1 class="m-0" style="text-align: center;">Barang masuk </h1>
+        <h1 class="m-0" style="text-align: center;">Stock Pupuk </h1>
     </div>
     
 </div>
@@ -151,7 +150,7 @@ $i=1;
             <!-- button tambah -->
             <div>
                 <a href="./tambah.php">
-                    <button type="button" class="btn btn-primary">Tambah Barang</button>
+                    <button type="button" class="btn btn-primary">Tambah Stock</button>
                 </a>
             </div>
         </div>
@@ -161,10 +160,10 @@ $i=1;
             <thead>
                 <tr>
                 <th scope="col">No</th>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Nama Barang</th>
-                <th scope="col">Jumlah</th>
-                <th scope="col">Keterangan</th>
+                <th scope="col">Merek Pupuk</th>
+                <th scope="col">Jenis Pupuk</th>
+                <th scope="col">Stok</th>
+                <th scope="col">Satuan</th>
                 <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -172,15 +171,15 @@ $i=1;
                 <?php foreach($data AS $baris):?>
                     <tr>
                         <td scope="row"><?php echo $i++?></td>
-                        <td><?php echo $baris['tanggal'];?></</td>
-                        <td><?php echo $baris['nama_barang'];?></td>
-                        <td><?php echo $baris['jumlah'];?></td>
-                        <td><?php echo $baris['keterangan'];?></td>
+                        <td><?php echo $baris['merek'];?></</td>
+                        <td><?php echo $baris['jenis_pupuk'];?></td>
+                        <td><?php echo $baris['stok'];?></td>
+                        <td><?php echo $baris['satuan'];?></td>
                         <td style="display: flex; justify-content: space-around;">
-                            <a href="./edit.php?id=<?php echo $baris["idkeluar"];?>">
+                            <a href="./edit.php?id=<?php echo $baris["id_pupuk"];?>">
                                 <button type="button" class="btn btn-warning">Edit</button>
                             </a>
-                            <a href="./hapus.php?id=<?php echo $baris["idkeluar"];?>" onclick="return confirm('Yakin mau menghapus?');">
+                            <a href="./hapus.php?id=<?php echo $baris["id_pupuk"];?>" onclick="return confirm('Yakin mau menghapus?');">
                                 <button type="button" class="btn btn-danger">Hapus</button>
                             </a>
                         </td>

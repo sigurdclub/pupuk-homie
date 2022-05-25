@@ -1,22 +1,34 @@
 <?php
-// include_once "../koneksi.php";
-// $koneksi = Koneksi();
-// if(isset($_POST['tambah'])){
+include_once "../koneksi.php";
+$koneksi = Koneksi();
 
-//     if(barangKeluar($_POST)>0){
-//     echo "
-//         <script>
-//             alert('data berhasil ditambah!');
-//             document.location.href = 'barang_keluar.php';
-//         </script>";
-//   }else{
-//     echo "
-//       <script>
-//           alert('data gagal ditambah!');
-//           document.location.href = 'barang_keluar.php';
-//       </script>";
-//   }
-// }
+$id = $_GET["id"];
+    $data=query("SELECT * FROM stok_pupuk WHERE id_pupuk='$id' ");
+  
+    foreach($data as $row){
+        $merek= $row["merek"];
+        $jenis= $row["jenis_pupuk"];
+        $stok=$row["stok"];
+        $sat=$row["satuan"];
+        
+    }
+
+if(isset($_POST['update'])){
+
+    if(update($_POST)>0){
+    echo "
+        <script>
+            alert('data berhasil diubah!');
+            document.location.href = 'stock_pupuk.php';
+        </script>";
+  }else{
+    echo "
+      <script>
+          alert('data gagal diubah!');
+          document.location.href = 'stock_pupuk.php';
+      </script>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,19 +125,19 @@
         
         <hr style="margin-top: 10%;"> 
         <li class="nav-item" style="padding: 5px;">
-            <a href="../stock_barang/stock_barang.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Stock barang</p>
-            </a>
+        <a href="../stock_pupuk/stock_pupuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Stock pupuk</p>
+        </a>
         </li>
         <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_masuk/barang_masuk.php" class="nav-link">
+            <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
             <i class="nav-icon fas fa-ellipsis-h"></i>
             <p>Barang Masuk</p>
             </a>
         </li>
         <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_keluar/barang_keluar.php" class="nav-link">
+            <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
             <i class="nav-icon fas fa-file"></i>
             <p>Barang Keluar</p>
             </a>
@@ -150,7 +162,7 @@
     <div class="container-fluid">
     
         <div class="">
-            <h1 class="m-0" style="text-align: center; color: black;">Tambah Stock</h1>
+            <h1 class="m-0" style="text-align: center; color: black;">Edit Barang masuk</h1>
         </div>
     
     </div>
@@ -160,29 +172,35 @@
     <!-- Isi konten -->
         <div class="container-fluid">
         <div class="row" style="justify-content: center;width: 100%;" >
-<div class="card card-stock-barang" style="width: 50%; background-color: #EEEEEE;">
+<div class="card card-stock-barang" style="width: 50%; background-color: #8E3200;">
     <div class="card-body">
         <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
             <div class="col-12">
-                <label for="inputAddress" class="form-label">Nama Barang</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Jukuna..." name="nama_barang" >
+                <input type="hidden" class="form-control" id="inputAddress" placeholder="..." name="id_pupuk" value="<?php echo $id ?>">
             </div>
             <div class="col-12">
-                <label for="inputAddress2" class="form-label">Deskripsi</label>
-                <input type="text" class="form-control" id="inputAddress3" placeholder="Besar" name="desc">
+                <label for="inputAddress" class="form-label">Merek Pupuk</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="..." name="merek_pupuk" value="<?php echo $merek ?>">
             </div>
-            <!-- <div class="col-12">
-                <label for="inputAddress2" class="form-label">Stock</label>
-                <input type="text" class="form-control" id="inputAddress4" placeholder="2" name="stok">
-            </div> -->
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Jenis Pupuk</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="..." name="jenis_pupuk" value="<?php echo $jenis ?>">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Stok</label>
+                <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="stok" value="<?php echo $stok ?>">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Satuan</label>
+                <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="satuan" value="<?php echo $sat ?>">
+            </div>
             <div class="col-12" style="display: flex; justify-content: right;">
-                <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
+                <button type="submit" class="btn btn-primary" name="update">Update</button>
             </div>
         </form>
     </div>
 </div>
 </div>
-
             
         </div>
     <!-- /.content -->
@@ -231,6 +249,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-

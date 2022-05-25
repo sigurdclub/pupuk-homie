@@ -7,7 +7,7 @@ if(isset ($_POST['login'])){
     $password =mysqli_escape_string($koneksi,$_POST['password']) ;
 
     //ambil data pada database (query) dan simpan dalam variabel result
-    $result = mysqli_query($koneksi, "SELECT * FROM admin WHERE username ='$username' && password ='$password'");
+    $result = mysqli_query($koneksi, "SELECT * FROM admin_pupuk WHERE username ='$username' && password ='$password'");
     $cek = mysqli_fetch_array($result);
     
     // cek username dan password
@@ -19,13 +19,13 @@ if(isset ($_POST['login'])){
         ];
         // setting session
         $_SESSION['log'] = True;
-        echo "<script>window.location='./admin/stock_barang/stock_barang.php';</script>";
+        echo "<script>window.location='./admin/stock_pupuk/stock_pupuk.php';</script>";
     }
     $error = true;
 }
 // cek jika session sdh dibuat
 if(isset($_SESSION['log'])){
-    echo "<script>window.location='./admin/stock_barang/stock_barang.php';</script>";
+    echo "<script>window.location='./admin/stock_pupuk/stock_pupuk.php';</script>";
 }
 
 ?>

@@ -3,17 +3,17 @@ include_once "../koneksi.php";
 $koneksi = Koneksi();
 if(isset($_POST['tambah'])){
 
-    if(tambahAdmin($_POST)>0){
+    if(barangKeluar($_POST)>0){
     echo "
         <script>
             alert('data berhasil ditambah!');
-            document.location.href = 'kelolah_admin.php';
+            document.location.href = 'pupuk_keluar.php';
         </script>";
   }else{
     echo "
       <script>
           alert('data gagal ditambah!');
-          document.location.href = 'kelolah_admin.php';
+          document.location.href = 'pupuk_keluar.php';
       </script>";
   }
 }
@@ -117,25 +117,25 @@ if(isset($_POST['tambah'])){
         <i class="nav-icon fas fa-ellipsis-h"></i>
         <p>Stock pupuk</p>
         </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Barang Masuk</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Barang Keluar</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Kelolah Admin</p>
-            </a>
-        </li>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Barang Masuk</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
+        <i class="nav-icon fas fa-file"></i>
+        <p>Barang Keluar</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
+        <i class="nav-icon fas fa-file"></i>
+        <p>Kelolah Admin</p>
+        </a>
+    </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
@@ -150,7 +150,7 @@ if(isset($_POST['tambah'])){
     <div class="container-fluid">
     
         <div class="">
-            <h1 class="m-0" style="text-align: center; color: black;">Tambah Admin</h1>
+            <h1 class="m-0" style="text-align: center; color: black;">Tambah Barang Keluar</h1>
         </div>
     
     </div>
@@ -162,19 +162,38 @@ if(isset($_POST['tambah'])){
         <div class="row" style="justify-content: center;width: 100%;" >
 <div class="card card-stock-barang" style="width: 50%; background-color: #8E3200;">
     <div class="card-body">
-    <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
-    <div class="col-12">
-        <label for="inputAddress" class="form-label">Username</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="username..." name="username" required>
-    </div>
-    <div class="col-12">
-        <label for="inputAddress2" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputAddress2" placeholder="password...." name="password" required>
-    </div>
-    <div class="col-12" style="display: flex; justify-content: right;">
-        <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
-    </div>
-    </form>
+        <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Merek Pupuk</label>
+                <select class="form-control" name="merek_pupuk" required style="background-color: white; color: black;">
+                    <option>--Pilih Barang--</option>
+                    <?php
+                        $data = query("SELECT * FROM stok_pupuk");
+                    ?>
+                    <?php foreach($data AS $row): 
+                        $namapupuk = $row['merek'];
+                        $id = $row['id_pupuk'];
+                    ?>
+                    <option value="<?php echo $id;?>"><?php echo $namapupuk;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Jenis Pupuk</label>
+                <input type="text" class="form-control" id="inputAddress4" placeholder="..." name="jenis" required>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Jumlah</label>
+                <input type="text" class="form-control" id="inputAddress4" placeholder="0" name="jlh" required>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Satuan</label>
+                <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="satuan" required>
+            </div>
+            <div class="col-12" style="display: flex; justify-content: right;">
+                <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
+            </div>
+        </form>
     </div>
 </div>
 </div>
@@ -226,8 +245,3 @@ if(isset($_POST['tambah'])){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-
-

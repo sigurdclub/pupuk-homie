@@ -2,8 +2,7 @@
 include_once'../koneksi.php';
 $koneksi = Koneksi();
 $i=1;
-    $data=query("SELECT * FROM stok_barang INNER JOIN stok_keluar ON stok_barang.idbarang = stok_keluar.idbarang 
-                ORDER BY idkeluar DESC");
+    $data=query("SELECT * FROM admin_pupuk");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,19 +99,19 @@ $i=1;
     
     <hr style="margin-top: 10%;"> 
     <li class="nav-item" style="padding: 5px;">
-        <a href="../stock_barang/stock_barang.php" class="nav-link">
+        <a href="../stock_pupuk/stock_pupuk.php" class="nav-link">
         <i class="nav-icon fas fa-ellipsis-h"></i>
         <p>Stock pupuk</p>
         </a>
     </li>
     <li class="nav-item" style="padding: 5px;">
-        <a href="../barang_masuk/barang_masuk.php" class="nav-link">
+        <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
         <i class="nav-icon fas fa-ellipsis-h"></i>
         <p>Barang Masuk</p>
         </a>
     </li>
     <li class="nav-item" style="padding: 5px;">
-        <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
+        <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
         <i class="nav-icon fas fa-file"></i>
         <p>Barang Keluar</p>
         </a>
@@ -171,13 +170,13 @@ $i=1;
                 <?php foreach($data AS $baris):?>
                     <tr>
                         <td scope="row"><?php echo $i++?></td>
-                        <td><?php echo $baris['tanggal'];?></</td>
-                        <td><?php echo $baris['keterangan'];?></td>
+                        <td><?php echo $baris['username'];?></</td>
+                        <td><?php echo $baris['password'];?></td>
                         <td style="display: flex; justify-content: space-around;">
-                            <a href="./edit.php?id=<?php echo $baris["idkeluar"];?>">
+                            <a href="./edit.php?id=<?php echo $baris["id"];?>">
                                 <button type="button" class="btn btn-warning">Edit</button>
                             </a>
-                            <a href="./hapus.php?id=<?php echo $baris["idkeluar"];?>" onclick="return confirm('Yakin mau menghapus?');">
+                            <a href="./hapus.php?id=<?php echo $baris["id"];?>" onclick="return confirm('Yakin mau menghapus?');">
                                 <button type="button" class="btn btn-danger">Hapus</button>
                             </a>
                         </td>

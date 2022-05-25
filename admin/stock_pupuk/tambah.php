@@ -1,22 +1,22 @@
 <?php
-// include_once "../koneksi.php";
-// $koneksi = Koneksi();
-// if(isset($_POST['tambah'])){
+include_once "../koneksi.php";
+$koneksi = Koneksi();
+if(isset($_POST['tambah'])){
 
-//     if(barangKeluar($_POST)>0){
-//     echo "
-//         <script>
-//             alert('data berhasil ditambah!');
-//             document.location.href = 'barang_keluar.php';
-//         </script>";
-//   }else{
-//     echo "
-//       <script>
-//           alert('data gagal ditambah!');
-//           document.location.href = 'barang_keluar.php';
-//       </script>";
-//   }
-// }
+    if(tambahstok($_POST)>0){
+    echo "
+        <script>
+            alert('data berhasil ditambah!');
+            document.location.href = 'stock_pupuk.php';
+        </script>";
+  }else{
+    echo "
+      <script>
+          alert('data gagal ditambah!');
+          document.location.href = 'stock_pupuk.php';
+      </script>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,29 +113,29 @@
         
         <hr style="margin-top: 10%;"> 
         <li class="nav-item" style="padding: 5px;">
-            <a href="../stock_barang/stock_barang.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Stock barang</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_masuk/barang_masuk.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Barang Masuk</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_keluar/barang_keluar.php" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Barang Keluar</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Kelolah Admin</p>
-            </a>
-        </li>
+        <a href="../stock_pupuk/stock_pupuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Stock pupuk</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Barang Masuk</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
+        <i class="nav-icon fas fa-file"></i>
+        <p>Barang Keluar</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
+        <i class="nav-icon fas fa-file"></i>
+        <p>Kelolah Admin</p>
+        </a>
+    </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
@@ -150,7 +150,7 @@
     <div class="container-fluid">
     
         <div class="">
-            <h1 class="m-0" style="text-align: center; color: black;">Tambah Barang Masuk</h1>
+            <h1 class="m-0" style="text-align: center; color: black;">Tambah Stock</h1>
         </div>
     
     </div>
@@ -160,31 +160,37 @@
     <!-- Isi konten -->
         <div class="container-fluid">
         <div class="row" style="justify-content: center;width: 100%;" >
-<div class="card card-stock-barang" style="width: 50%; background-color: #8E3200;">
+<div class="card card-stock-barang" style="width: 50%; background-color: #EEEEEE;">
     <div class="card-body">
-    <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-        <label>Select</label>
-        <select class="form-control" name="nama_barang" required>
-            <option>--Pilih Barang--</option>
-            <option value=""></option>
-        </select>
-    </div>
-    <div class="col-12">
-        <label for="inputAddress2" class="form-label">Jumlah</label>
-        <input type="text" class="form-control" id="inputAddress4" placeholder="0" name="jlh" required>
-    </div>
-    <div class="col-12">
-        <label for="inputAddress2" class="form-label">Keterangan</label>
-        <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="ket" required>
-    </div>
-    <div class="col-12" style="display: flex; justify-content: right;">
-        <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
-    </div>
-    </form>
+        <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Merek Pupuk</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="..." name="merek_pupuk" >
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Jenis Pupuk</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="..." name="jenis_pupuk" >
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Stok</label>
+                <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="stok">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Satuan</label>
+                <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="satuan">
+            </div>
+            <!-- <div class="col-12">
+                <label for="inputAddress2" class="form-label">Stock</label>
+                <input type="text" class="form-control" id="inputAddress4" placeholder="2" name="stok">
+            </div> -->
+            <div class="col-12" style="display: flex; justify-content: right;">
+                <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
+            </div>
+        </form>
     </div>
 </div>
 </div>
+
             
         </div>
     <!-- /.content -->
@@ -233,3 +239,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+

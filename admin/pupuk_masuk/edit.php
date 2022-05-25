@@ -1,22 +1,33 @@
 <?php
-// include_once "../koneksi.php";
-// $koneksi = Koneksi();
-// if(isset($_POST['tambah'])){
+include_once "../koneksi.php";
+$koneksi = Koneksi();
 
-//     if(barangKeluar($_POST)>0){
-//     echo "
-//         <script>
-//             alert('data berhasil ditambah!');
-//             document.location.href = 'barang_keluar.php';
-//         </script>";
-//   }else{
-//     echo "
-//       <script>
-//           alert('data gagal ditambah!');
-//           document.location.href = 'barang_keluar.php';
-//       </script>";
-//   }
-// }
+$id = $_GET["id"];
+    $data=query("SELECT * FROM pupuk_masuk WHERE id='$id' ");
+  
+    foreach($data as $row){
+        $merek= $row["id_pupuk"];
+        $jenis= $row["jenis_pupuk"];
+        $jlh=$row["jumlah"];
+        $sat=$row["satuan"];
+        
+    }
+
+if(isset($_POST['update'])){
+    if(updateMasuk($_POST)>0){
+    echo "
+        <script>
+            alert('data berhasil diubah!');
+            document.location.href = 'pupuk_masuk.php';
+        </script>";
+  }else{
+    echo "
+      <script>
+          alert('data gagal diubah!');
+          document.location.href = 'pupuk_masuk.php';
+      </script>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,29 +124,29 @@
         
         <hr style="margin-top: 10%;"> 
         <li class="nav-item" style="padding: 5px;">
-            <a href="../stock_barang/stock_barang.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Stock barang</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_masuk/barang_masuk.php" class="nav-link">
-            <i class="nav-icon fas fa-ellipsis-h"></i>
-            <p>Barang Masuk</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../barang_keluar/barang_keluar.php" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Barang Keluar</p>
-            </a>
-        </li>
-        <li class="nav-item" style="padding: 5px;">
-            <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Kelolah Admin</p>
-            </a>
-        </li>
+        <a href="../stock_pupuk/stock_pupuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Stock pupuk</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../pupuk_masuk/pupuk_masuk.php" class="nav-link">
+        <i class="nav-icon fas fa-ellipsis-h"></i>
+        <p>Barang Masuk</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../pupuk_keluar/pupuk_keluar.php" class="nav-link">
+        <i class="nav-icon fas fa-file"></i>
+        <p>Barang Keluar</p>
+        </a>
+    </li>
+    <li class="nav-item" style="padding: 5px;">
+        <a href="../kelolah_admin/kelolah_admin.php" class="nav-link">
+        <i class="nav-icon fas fa-file"></i>
+        <p>Kelolah Admin</p>
+        </a>
+    </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
@@ -150,7 +161,7 @@
     <div class="container-fluid">
     
         <div class="">
-            <h1 class="m-0" style="text-align: center; color: black;">Tambah Barang Keluar</h1>
+            <h1 class="m-0" style="text-align: center; color: black;">Edit Barang masuk</h1>
         </div>
     
     </div>
@@ -162,26 +173,41 @@
         <div class="row" style="justify-content: center;width: 100%;" >
 <div class="card card-stock-barang" style="width: 50%; background-color: #8E3200;">
     <div class="card-body">
-    <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-        <label>Select</label>
-        <select class="form-control" name="nama_barang" required>
-            <option>--Pilih Barang--</option>
-            <option value=""></option>
-        </select>
-    </div>
-    <div class="col-12">
-        <label for="inputAddress2" class="form-label">Jumlah</label>
-        <input type="text" class="form-control" id="inputAddress4" placeholder="0" name="jlh" required>
-    </div>
-    <div class="col-12">
-        <label for="inputAddress2" class="form-label">Keterangan</label>
-        <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="ket" required>
-    </div>
-    <div class="col-12" style="display: flex; justify-content: right;">
-        <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
-    </div>
-    </form>
+        <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
+            <div class="col-12">
+                <input type="hidden" class="form-control" id="inputAddress" placeholder="..." name="id" value="<?php echo $id ?>">
+                <input type="hidden" class="form-control" id="inputAddress" placeholder="..." name="id_pupuk" value="<?php echo $merek ?>">
+            </div>
+            <div class="form-group">
+                <label>Merek Pupuk</label>
+                <select class="form-control" name="merek_pupuk" required style="background-color: white; color: black;">
+                    <option>--Pilih Barang--</option>
+                    <?php $sql = mysqli_query($koneksi,"SELECT * FROM stok_pupuk");
+                        foreach ($sql AS $pupuk){?>
+                        <?php if($data['id_pupuk'] == $pupuk['id']){?>
+                            <option value="<?php echo $pupuk['id_pupuk']?>" selected><?php echo $pupuk['merek']?></option>
+                        <?php }else{?>
+                            <option value="<?php echo $pupuk['id']?>"><?php echo $pupuk['merek']?></option>
+                        <?php }?>
+                    <?php }?>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Jenis Pupuk</label>
+                <input type="text" class="form-control" id="inputAddress4" placeholder="..." name="jenis" required value="<?php echo $jenis ?>">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Jumlah</label>
+                <input type="text" class="form-control" id="inputAddress4" placeholder="0" name="jlh" required value="<?php echo $jlh ?>">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Satuan</label>
+                <input type="text" class="form-control" id="inputAddress3" placeholder="..." name="satuan" required value="<?php echo $sat ?>">
+            </div>
+            <div class="col-12" style="display: flex; justify-content: right;">
+                <button type="submit" class="btn btn-primary" name="update">Update</button>
+            </div>
+        </form>
     </div>
 </div>
 </div>

@@ -7,13 +7,13 @@ $id = htmlspecialchars($_GET["id"]);
     echo "
             <script>
                alert('data berhasil dihapus!');
-               document.location.href = 'barang_keluar.php';
+               document.location.href = 'pupuk_keluar.php';
             </script>";
   }else{
     echo "
             <script>
                alert('data gagal dihapus!');
-               document.location.href = 'barang_keluar.php';
+               document.location.href = 'pupuk_keluar.php';
             </script>";
   }
 
